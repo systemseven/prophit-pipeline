@@ -1,0 +1,45 @@
+name: NFL Data Pipeline
+
+on:
+  schedule:
+    # Runs daily at 5:00 AM EST (10:00 AM UTC)
+    - cron: '0 10 * * *'
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
+      START_SEASON: ${{ secrets.START_SEASON }}
+      END_SEASON: ${{ secrets.END_SEASON }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run NFL stats
+        run: python -m nfl.stats
+
+      - name: Run NFL fantasy
+        run: python -m nfl.fantasy
+
+      - name: Run NFL players
+        run: python -m nfl.players
+
+      - name: Run NFL teams
+        run: python -m nfl.teams
