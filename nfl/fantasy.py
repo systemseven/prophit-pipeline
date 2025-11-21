@@ -33,7 +33,7 @@ def opps():
             store(json, filename)
 
 if __name__ == '__main__':
-   fantasy_ids()
+    fantasy_ids()
     print('------')
     rankings()
     print('------')
