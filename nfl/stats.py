@@ -57,12 +57,12 @@ def snaps():
 
 
 if __name__ == '__main__':
-    #stats()
+    stats()
     print('------')
-    #pbp()
+    pbp()
     print('------')
-    #pfr()
+    pfr()
     print('------')
-    #nextgen()
+    nextgen()
     print('------')
     snaps()

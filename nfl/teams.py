@@ -56,8 +56,6 @@ def depth_charts():
         print(f'[Teams] - Getting {season} Depth Charts')
         filename = f'{season}/depth_charts.json'
         stat_df = nfl.load_depth_charts(season)
-        print(stat_df.head())
-        print(stat_df.columns)
         json = stat_df.write_json()
         store(json, filename)
         print(f'[Teams] - Wrote {season} Depth Charts')
